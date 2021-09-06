@@ -1,0 +1,47 @@
+{
+	"postCollections": [
+		{
+			"postsJson": "@parts/posts.json"
+		},
+		{
+			"postsJson": "@parts/artboard.json"
+		}
+	],
+	"postLists": [
+		{
+			"template": "@parts/templates/post-link-template.html",
+			"postCollectionId": 0
+		},
+		{
+			"template": "@parts/templates/artboard-artpiece-template.html",
+			"postCollectionId": 1
+		}
+	],
+	"files": [
+		{
+			"template": "@parts/templates/article-template.html",
+			"scope": "per-post#0",
+			"filename": "${PostFilename}"
+		},
+		{
+			"template": "@parts/templates/main-page-template.html",
+			"scope": "once",
+			"filename": "index.html"
+		},
+		{
+			"template": "@parts/templates/artboard-template.html",
+			"scope": "once",
+			"filename": "artboard.html"
+		},
+		{
+			"template": "@parts/assets",
+			"scope": "no-replace",
+			"filename": "assets"
+		},
+		{
+			"template": "@parts/templates/about-template.html",
+			"scope": "once",
+			"filename": "about.html"
+		}
+	]
+}

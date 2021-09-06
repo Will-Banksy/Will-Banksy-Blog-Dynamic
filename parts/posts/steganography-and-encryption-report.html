@@ -1,0 +1,24 @@
+<h1>
+	Steganography And Encryption Report
+</h1>
+<p>
+	This was done for my Introduction to Security module at uni, the grade I got was A+.<br>
+	Link to project undertaken alongside the report: <a href="https://github.com/Will-Banksy/Hideit">https://github.com/Will-Banksy/Hideit</a>
+</p>
+<!-- https://stackoverflow.com/questions/19654577/html-embedded-pdf-iframe#19654875 -->
+<object data="/assets/Steganography-And-Encryption-Report.pdf" type="application/pdf" width=100% style="height: 100vh;">
+    <iframe id="steg-enc-report-pdf" title="Steganography And Encryption Report PDF" src="https://docs.google.com/viewer?url=_&embedded=true" width=100% style="height: 100vh;"></iframe>
+    <script>
+let hostname = window.location.hostname;
+if(hostname !== "") {
+	let path = "/assets/Steganography-And-Encryption-Report.pdf";
+	let iframeSrc = "https://docs.google.com/viewer?url=" + hostname + path + "&embedded=true"
+	document.getElementById("steg-enc-report-pdf").src = iframeSrc;
+} else {
+	document.getElementById("steg-enc-report-pdf")
+}
+    </script>
+</object>
+<p>
+	(Backup link to pdf: <a href="/assets/Steganography-And-Encryption-Report.pdf">Steganography-And-Encryption-Report.pdf</a>)
+</p>

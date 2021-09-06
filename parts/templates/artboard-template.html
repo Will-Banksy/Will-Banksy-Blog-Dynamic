@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		${@parts/templates/metadata-template.html}
+		<title>Artboard - WillBanksy's Blog</title>
+	</head>
+
+	<body>
+		${@parts/templates/header-template.html}
+
+		<main>
+			<h1>My Pixel Art Artboard</h1>
+			<p>I started off making pixel art using <a href="https://www.piskelapp.com/">Piskel</a> for modding Terraria with tModLoader, now I use <a href="https://www.aseprite.org/">Aseprite</a> for everything. I still do sprites for modding Terraria, but I also do other stuff. I'm not exactly a master but I'm constantly improving. Hopefully.</p>
+			<p>All my sprites are free to use/modify/whatever for any purpose.</p>
+
+			<div class="masonry-container"> <!-- The masonry layout - Fitting lots of images with different aspect ratios without cropping or breaking the aspect ratio -->
+				${PostList[1]}
+			</div>
+		</main>
+
+		${@parts/templates/footer-template.html}
+	</body>
+</html>
