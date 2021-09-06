@@ -28,6 +28,6 @@ jobs:
         with:
           source_branch: glitch
           destination_branch: main
-          pr_title: Auto Pull Request - Glitch Sync
+          pr_title: Automatic Pull Request - Sync to Github
           pr_label: automerge
           github_token: ${{ secrets.GITHUB_TOKEN }}
