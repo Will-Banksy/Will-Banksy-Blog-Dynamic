@@ -12,7 +12,7 @@ var app = express();
 // Serve the output directory statically
 app.use(express.static("output"));
 
-app.post("/make-post", function(request, response) {
+app.post("/admin/make-post", function(request, response) {
 	response.send("Hello! Sorry function currently unavailable. Shall export to github anyways")
 
 	// Export to glitch branch on github. Captured request from clicking "Export to GitHub" button

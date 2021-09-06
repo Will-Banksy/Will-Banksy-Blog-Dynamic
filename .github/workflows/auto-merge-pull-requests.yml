@@ -25,3 +25,5 @@ jobs:
         uses: buildsville/simple-merge@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          method: merge
+          labels: '[ "automerge" ]'
