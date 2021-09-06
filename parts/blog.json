@@ -42,6 +42,11 @@
 			"template": "@parts/templates/about-template.html",
 			"scope": "once",
 			"filename": "about.html"
+		},
+		{
+			"template": "@parts/templates/admin-template.html",
+			"scope": "once",
+			"filename": "admin.html"
 		}
 	]
 }
