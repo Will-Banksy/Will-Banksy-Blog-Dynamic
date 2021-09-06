@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		${@parts/templates/metadata-template.html}
+		<title>Admin - WillBanksy's Blog</title>
+	</head>
+
+	<body>
+		${@parts/templates/header-template.html}
+
+		<main>
+			<h1>Admin</h1>
+			<p>You'll need the admin password to make any changes here</p>
+
+			<button type="button">Create Post</button> <!-- This button makes the form visible -->
+			<form id="admin-create-post-form" action="/admin/create-post" method="POST">
+				<label for="admin-create-post-posttitle">Post Title</label>
+				<input type="text" name="posttitle" id="admin-create-post-posttitle" size="40" required>
+
+				<label for="admin-create-post-postdescription">Post Description</label>
+				<input type="text" name="postdescription" id="admin-create-post-postdescription" size="80" required>
+
+				<label for="admin-create-post-postthumbnail">Post Thumbnail</label>
+				<input type="file" name="postthumbnail" id="admin-create-post-postthumbnail" required>
+
+				<label for="admin-create-post-postfilename">Post Filename</label>
+				<input type="text" name="postfilename" id="admin-create-post-postfilename" size="40" required>
+
+				<label for="admin-create-post-posttemplatefilename">Post Template Filename</label>
+				<input type="text" name="posttemplatefilename" id="admin-create-post-posttemplatefilename" size="40" required>
+
+				<label for="admin-create-post-postcontent">Post Content</label>
+				<textarea name="postcontent" id="admin-create-post-postcontent" required>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-GB&quot;&gt;
+	&lt;head&gt;
+		${@parts/templates/metadata-template.html}
+		&lt;title&gt;Page Name - WillBanksy's Blog&lt;/title&gt;
+	&lt;/head&gt;
+
+	&lt;body&gt;
+		${@parts/templates/header-template.html}
+
+		&lt;main&gt;
+			&lt;h1&gt;My Page Header&lt;/h1&gt;
+		&lt;/main&gt;
+
+		${@parts/templates/footer-template.html}
+	&lt;/body&gt;
+&lt;/html&gt;</textarea>
+
+				<label for="admin-create-post-password">Admin Password</label>
+				<input type="password" name="password" id="admin-create-post-password" required>
+
+				<button type="button" onclick="SubmitPost()">Post</button>
+			</form>
+
+			<button type="button">Upload Artwork
+			</button>
+		</main>
+
+		${@parts/templates/footer-template.html}
+	</body>
+</html>
