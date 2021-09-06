@@ -1,4 +1,4 @@
-// First, we should probably build the site
+// First, we should probably build the site. I'm not sure about this tbh
 const { exec } = require('child_process');
 // This will run the command to build the site
 exec("node Stagenx.js parts/blog.json output .")
@@ -11,6 +11,10 @@ var app = express();
 
 // Serve the output directory statically
 app.use(express.static("output"));
+
+app.post("/make-post", function(request, response) {
+	response.send("Hello! Sorry function currently unavailable")
+});
 
 // Listen on a port
 const listener = app.listen(process.env.PORT, () => {
