@@ -25,6 +25,6 @@ jobs:
         uses: kanadgupta/glitch-sync@master
         with:
           # Using secrets so people can't access my glitch :eyes:
-          project-id: '${{ secrets.glitchProjectId }}'
-          auth-token: '${{ secrets.glitchAuthToken }}'
+          project-id: '${{ secrets.GLITCH_PROJECT_ID }}'
+          auth-token: '${{ secrets.GLITCH_AUTH }}'
 
