@@ -1,3 +1,8 @@
+// First, we should probably build the site
+const { exec } = require('child_process');
+// This will run the command to build the site
+exec("node Stagenx.js parts/blog.json output .")
+
 // Import express js
 var express = require("express");
 
