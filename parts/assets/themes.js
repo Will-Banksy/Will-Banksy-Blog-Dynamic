@@ -1,3 +1,15 @@
+function Qs(query, perElementCallback) {
+	if(perElementCallback) {
+		let elems = document.querySelectorAll(query);
+		for (let i = elems.length - 1; i >= 0; i--) {
+			perElementCallback(elems[i]);
+		}
+		return elems;
+	} else {
+		return document.querySelectorAll(query);
+	}
+}
+
 class Theme {
 	constructor(name, assets_path,
 		col_text, col_text_intense, col_accent,
@@ -86,18 +98,27 @@ function SetThemeImgs(themeIdx) {
 	let currTheme = themes[themeIdx];
 
 	// Change the images
-	let logoImgs = document.getElementsByClassName("theme-img-logo");
-	for(let i = logoImgs.length - 1; i >= 0; i--) {
-		logoImgs[i].src = currTheme.assets_path + "/icon.png";
-	}
+	// let logoImgs = document.getElementsByClassName("theme-img-logo");
+	// for(let i = logoImgs.length - 1; i >= 0; i--) {
+	// 	logoImgs[i].src = currTheme.assets_path + "/icon.png";
+	// }
+	Qs(".theme-img-logo", (elem) => {
+		elem.src = currTheme.assets_path + "/icon.png";
+	});
 
-	let calImgs = document.getElementsByClassName("theme-img-calendar");
-	for(let i = calImgs.length - 1; i >= 0; i--) {
-		calImgs[i].src = currTheme.assets_path + "/calendar.png";
-	}
+	// let calImgs = document.getElementsByClassName("theme-img-calendar");
+	// for(let i = calImgs.length - 1; i >= 0; i--) {
+	// 	calImgs[i].src = currTheme.assets_path + "/calendar.png";
+	// }
+	Qs(".theme-img-calendar", (elem) => {
+		elem.src = currTheme.assets_path + "/calendar.png";
+	});
 
-	let ghImgs = document.getElementsByClassName("theme-img-github");
-	for(let i = ghImgs.length - 1; i >= 0; i--) {
-		ghImgs[i].src = currTheme.assets_path + "/github.png";
-	}
+	// let ghImgs = document.getElementsByClassName("theme-img-github");
+	// for(let i = ghImgs.length - 1; i >= 0; i--) {
+	// 	ghImgs[i].src = currTheme.assets_path + "/github.png";
+	// }
+	Qs(".theme-img-github", (elem) => {
+		elem.src = currTheme.assets_path + "/github.png";
+	});
 }

@@ -8,9 +8,15 @@
   },
   "author": "WillBanksy",
   "license": "MIT",
+  "engines": {
+    "node": "^16.0.0"
+  },
   "dependencies": {
     "express": "^4.17.1",
-    "js-sha256": "^0.9.0"
+    "formidable": "^1.2.2",
+    "fs": "^0.0.1-security",
+    "js-sha256": "^0.9.0",
+    "luxon": "^2.0.2"
   },
   "keywords": [
     "blog"
