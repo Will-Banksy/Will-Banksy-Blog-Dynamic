@@ -3,6 +3,7 @@
 	<head>
 		${@parts/templates/metadata-template.html}
 		<script src="/assets/form-scripts.js" defer></script>
+		<link href="/assets/form-style.css" rel="stylesheet">
 		<title>Admin - WillBanksy's Blog</title>
 	</head>
 
@@ -19,46 +20,81 @@
 					<legend>Create Post</legend>
 
 					<label for="admin-create-post-posttitle">Post Title</label><br>
-					<input type="text" name="posttitle" id="admin-create-post-posttitle" size="40" required><br>
+					<div class="form-input-wrapper">
+						<input type="text" name="posttitle" id="admin-create-post-posttitle" size="40" required>
+						${@parts/assets/tick.svg}
+					</div><br>
 
 					<label for="admin-create-post-postdescription">Post Description</label><br>
-					<input type="text" name="postdescription" id="admin-create-post-postdescription" size="80" required><br>
+					<div class="form-input-wrapper">
+						<input type="text" name="postdescription" id="admin-create-post-postdescription" size="80" required>
+						${@parts/assets/tick.svg}
+					</div><br>
 
 					<label for="admin-create-post-postthumbnail">Post Thumbnail</label><br>
-					<input type="file" name="postthumbnail" id="admin-create-post-postthumbnail" required><br>
+					<div class="form-input-wrapper">
+						<label class="form-file-input-area">
+							<div class="form-file-input-content">Select File(s)</div>
+							<input type="file" name="postthumbnail" id="admin-create-post-postthumbnail" required>
+							${@parts/assets/tick.svg}
+						</label>
+					</div><br>
 
 					<label for="admin-create-post-postfilename">Post Filename</label><br>
-					<input type="text" name="postfilename" id="admin-create-post-postfilename" size="40" required><br>
+					<div class="form-input-wrapper">
+						<input type="text" name="postfilename" id="admin-create-post-postfilename" size="40" required>
+						${@parts/assets/tick.svg}
+					</div><br>
 
-					<!-- Escaping @ symbol (&#64;) in textarea content so it's not replaced -->
 					<label for="admin-create-post-postcontent">Post Content</label><br>
-					<textarea name="postcontent" id="admin-create-post-postcontent" required>&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en-GB&quot;&gt;
-	&lt;head&gt;
-		${&#64;parts/templates/metadata-template.html}
-		&lt;title&gt;Page Name - WillBanksy's Blog&lt;/title&gt;
-	&lt;/head&gt;
-
-	&lt;body&gt;
-		${&#64;parts/templates/header-template.html}
-
-		&lt;main&gt;
-			&lt;h1&gt;My Page Header&lt;/h1&gt;
-		&lt;/main&gt;
-
-		${&#64;parts/templates/footer-template.html}
-	&lt;/body&gt;
-&lt;/html&gt;</textarea><br>
+					<div class="form-input-wrapper form-input-wrapper-block">
+						<textarea name="postcontent" id="admin-create-post-postcontent" required>&lt;h1&gt;My Page Header&lt;/h1&gt;</textarea>
+						${@parts/assets/tick.svg}
+					</div><br>
 
 					<label for="admin-create-post-password">Admin Password</label><br>
-					<input type="password" name="password" id="admin-create-post-password" required><br>
+					<div class="form-input-wrapper">
+						<input type="password" name="password" id="admin-create-post-password" required>
+						${@parts/assets/tick.svg}
+					</div><br>
 
 					<input type="submit" value="Post">
 				</fieldset>
 			</form>
 
-			<button type="button">Upload Artwork
-			</button>
+			<button type="button" onclick="ToggleVisibility('#admin-upload-artwork-form');">Upload Artwork</button>
+			<form id="admin-upload-artwork-form" style="display: none;">
+				<fieldset class="form-area">
+					<legend>Upload Artwork</legend> 
+
+					<label for="admin-upload-artwork-artworkfile">Post Thumbnail</label><br>
+					<div class="form-input-wrapper">
+						<label class="form-file-input-area">
+							<div class="form-file-input-content">Select File(s)</div>
+							<input type="file" name="postthumbnail" id="admin-upload-artwork-artworkfile" required>
+							${@parts/assets/tick.svg}
+						</label>
+					</div><br>
+
+					<label for="admin-upload-artwork-artworkfilename">Post Filename</label><br>
+					<div class="form-input-wrapper">
+						<input type="text" name="postfilename" id="admin-upload-artwork-artworkfilename" size="40" required>
+						${@parts/assets/tick.svg}
+					</div><br>
+
+					<button class="add-button">
+						${@parts/assets/plus.svg}Add Artwork
+					</button><br>
+
+					<label for="admin-upload-artwork-password">Admin Password</label><br>
+					<div class="form-input-wrapper">
+						<input type="password" name="password" id="admin-upload-artwork-password" required>
+						${@parts/assets/tick.svg}
+					</div>
+
+					<input type="submit" value="Post">
+				</fieldset>
+			</form>
 		</main>
 
 		${@parts/templates/footer-template.html}

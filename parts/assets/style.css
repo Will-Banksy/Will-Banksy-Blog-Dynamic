@@ -20,6 +20,8 @@ TODO: Fix the issue of the palette button. Again. *Sigh* the old fix doesn't wor
 	--back-dark: #441d33;
 	--back-vdark: #1c0c18;
 
+	--transparent: rgba(0, 0, 0, 0);
+
 	color: var(--text);
 	background-color: var(--back-vdark);
 	font-family: 'Red Hat Text', sans-serif;
@@ -61,68 +63,6 @@ a {
 
 a:hover {
 	text-decoration: underline;
-}
-
-button,
-input[type="submit"] {
-	background-color: var(--back-vdark);
-	border-radius: 3px;
-	border: 2px solid var(--back-mid);
-	padding: 0.4rem 0.8rem;
-	color: var(--text);
-	transition: 0.2s all ease-in-out;
-	margin-bottom: 1rem;
-}
-
-button:hover,
-input[type="submit"]:hover {
-	border-color: var(--accent);
-	cursor: pointer;
-}
-
-input {
-	margin-bottom: 1rem;
-}
-
-input[type="text"],
-input[type="password"],
-textarea {
-	background-color: var(--back-vdark);
-	border-radius: 3px;
-	border: 2px solid var(--back-mid);
-	padding: 0.4rem 0.8rem;
-	color: var(--text);
-	transition: background-color 0.2s, border-color 0.2s ease-in-out;
-}
-
-textarea {
-	width: 100%;
-	height: 24rem;
-	resize: vertical;
-	margin-bottom: 1rem;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-textarea:focus {
-	border-color: var(--accent);
-	outline: none;
-}
-
-fieldset {
-	border: 2px solid var(--back-vdark);
-	border-radius: 3px;
-	padding: 1rem 1.4rem;
-	margin-bottom: 1rem;
-	box-sizing: border-box;
-}
-
-fieldset *:last-child {
-	margin-bottom: 0;
-}
-
-fieldset legend {
-	padding: 0 0.4rem;
 }
 
 body {

@@ -1,0 +1,141 @@
+button,
+input[type="submit"] {
+	background-color: var(--back-vdark);
+	border-radius: 3px;
+	border: 2px solid var(--back-mid);
+	padding: 0.4rem 0.8rem;
+	color: var(--text);
+	transition: 0.2s all ease-in-out;
+	margin-bottom: 1rem;
+}
+
+button:hover,
+input[type="submit"]:hover {
+	border-color: var(--accent);
+	cursor: pointer;
+}
+
+input {
+	margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+	background-color: var(--back-vdark);
+	border-radius: 3px;
+	border: 2px solid var(--back-mid);
+	padding: 0.4rem 0.8rem;
+	color: var(--text);
+	transition: border-color 0.2s ease-in-out;
+}
+
+textarea {
+	width: 100%;
+	height: 24rem;
+	resize: vertical;
+	margin-bottom: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+	border-color: var(--accent);
+	outline: none;
+}
+
+.form-input-wrapper input,
+.form-input-wrapper textarea {
+	margin-bottom: 0;
+}
+
+.form-input-wrapper {
+	margin-bottom: 1rem;
+	display: inline-block;
+	position: relative;
+}
+
+.form-input-wrapper-block {
+	display: block;
+}
+
+.form-input-wrapper .svg-tick {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0.5rem; /* Arbitrary value */
+	width: 1.2rem; /* Arbitrary value */
+	height: auto;
+	fill: var(--transparent);
+	pointer-events: none; /* Makes the element transparent to mouse events */
+}
+
+.form-input-wrapper input:valid + .svg-tick,
+.form-input-wrapper textarea:valid + .svg-tick {
+	fill: var(--back-mid);
+}
+
+.form-input-wrapper .svg-path-colour-back-mid {
+	fill: inherit;
+}
+
+/*
+label.form-file-input-area
+	div.form-file-input-content
+	input[file]
+	svg
+*/
+
+.form-file-input-area {
+	position: relative;
+	display: inline-block;
+	box-sizing: border-box;
+}
+
+.form-file-input-content {
+	border: 2px solid var(--back-mid);
+	background-color: var(--back-vdark);
+	color: var(--text);
+	padding: 0.4rem 0.8rem;
+	padding-right: 2.4rem;
+	border-radius: 3px;
+	transition: border-color 0.2s ease-in-out;
+}
+
+input[type="file"] {
+	cursor: pointer;
+}
+
+.form-file-input-area:hover .form-file-input-content {
+	border-color: var(--accent);
+}
+
+input[type="file"] {
+	opacity: 0; /* Make invisible */
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.add-button .svg-plus {
+	pointer-events: none;
+}
+
+fieldset {
+	border: 2px solid var(--back-vdark);
+	border-radius: 3px;
+	padding: 1rem 1.4rem;
+	margin-bottom: 1rem;
+	box-sizing: border-box;
+}
+
+fieldset *:last-child {
+	margin-bottom: 0;
+}
+
+fieldset legend {
+	padding: 0 0.4rem;
+}

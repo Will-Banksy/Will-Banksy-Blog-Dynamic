@@ -76,3 +76,40 @@ Qs("#admin-create-post-form")[0].addEventListener("submit", (event) => {
 			console.log(data);
 		});
 });
+
+Qs('input[type="file"]', (elem) => {
+	const callback = (event) => { /* Declare and initialise callback for use in event listener. This allows us to call it beforehand */
+		let filesStr = "Select File: ";
+		if(elem.attributes.multiple) {
+			filesStr = "Select File(s): "
+		}
+		for (let i = 0; i < elem.files.length; i++) {
+			filesStr += elem.files[i].name;
+			if(i < elem.files.length - 1) {
+				filesStr += "; ";
+			}
+		}
+		if(!filesStr) {
+			filesStr = "Select File"
+			if(elem.attributes.multiple) {
+				filesStr = "Select File(s)"
+			}
+		}
+
+		let inputContentElem = elem.previousElementSibling;
+
+		/* Do a wee bit of styling here just to make the button look better.
+		   Make space for the tick if the input is valid.
+		   If no js then the space will be there always */
+		let inputValidity = elem.checkValidity();
+		if(inputValidity) {
+			inputContentElem.style.setProperty("padding-right", "2.4rem");
+		} else {
+			inputContentElem.style.setProperty("padding-right", "0.8rem");
+		}
+
+		inputContentElem.innerHTML = filesStr;
+	}
+	callback(); /* Call it immediately, because a file might already be selected */
+	elem.addEventListener("change", callback);
+});
