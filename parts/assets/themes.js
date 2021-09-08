@@ -10,6 +10,7 @@ function Qs(query, perElementCallback) {
 	}
 }
 
+// Theme class. Has the theme name, path to the directory where theme-specific assets (images) are stored, and has all the colours in the theme
 class Theme {
 	constructor(name, assets_path,
 		col_text, col_text_intense, col_accent,
@@ -26,6 +27,7 @@ class Theme {
 	}
 }
 
+// Let's create some themes!
 const themes = [
 	new Theme("Fire", "/assets/theme/fire",
 		"#fff2b0", "#fade4e", "#e43242", "#a22e41", "#752a3f", "#441d33", "#1c0c18"),
@@ -35,7 +37,7 @@ const themes = [
 		"#def2cb", "#83da30", "#22cb3e", "#37a661", "#3b8766", "#2f6152", "#294542")
 ];
 
-/* Switching the theme is not allowed until the page has fully loaded */
+// Switching the theme is not allowed until the page has fully loaded
 let acceptSwitchTheme = false;
 
 // When this script is parsed - After page load (cause script is deferred) - Set the theme to the one saved for the user
@@ -98,26 +100,12 @@ function SetThemeImgs(themeIdx) {
 	let currTheme = themes[themeIdx];
 
 	// Change the images
-	// let logoImgs = document.getElementsByClassName("theme-img-logo");
-	// for(let i = logoImgs.length - 1; i >= 0; i--) {
-	// 	logoImgs[i].src = currTheme.assets_path + "/icon.png";
-	// }
 	Qs(".theme-img-logo", (elem) => {
 		elem.src = currTheme.assets_path + "/icon.png";
 	});
-
-	// let calImgs = document.getElementsByClassName("theme-img-calendar");
-	// for(let i = calImgs.length - 1; i >= 0; i--) {
-	// 	calImgs[i].src = currTheme.assets_path + "/calendar.png";
-	// }
 	Qs(".theme-img-calendar", (elem) => {
 		elem.src = currTheme.assets_path + "/calendar.png";
 	});
-
-	// let ghImgs = document.getElementsByClassName("theme-img-github");
-	// for(let i = ghImgs.length - 1; i >= 0; i--) {
-	// 	ghImgs[i].src = currTheme.assets_path + "/github.png";
-	// }
 	Qs(".theme-img-github", (elem) => {
 		elem.src = currTheme.assets_path + "/github.png";
 	});

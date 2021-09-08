@@ -10,12 +10,10 @@
     <iframe id="steg-enc-report-pdf" title="Steganography And Encryption Report PDF" src="https://docs.google.com/viewer?url=_&embedded=true" width=100% style="height: 100vh;"></iframe>
     <script>
 let hostname = window.location.hostname;
-if(hostname !== "") {
+if(hostname !== "") { // If not file:// - I think.
 	let path = "/assets/Steganography-And-Encryption-Report.pdf";
 	let iframeSrc = "https://docs.google.com/viewer?url=" + hostname + path + "&embedded=true"
-	document.getElementById("steg-enc-report-pdf").src = iframeSrc;
-} else {
-	document.getElementById("steg-enc-report-pdf")
+	Qs("#steg-enc-report-pdf")[0].src = iframeSrc;
 }
     </script>
 </object>
