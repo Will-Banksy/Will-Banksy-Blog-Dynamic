@@ -1,7 +1,7 @@
 function Qs(query, perElementCallback) {
 	if(perElementCallback) {
 		let elems = document.querySelectorAll(query);
-		for (let i = elems.length - 1; i >= 0; i--) {
+		for (let i = 0; i < elems.length; i++) {
 			perElementCallback(elems[i]);
 		}
 		return elems;
@@ -39,6 +39,46 @@ function ToggleVisibility(query) {
 	});
 }
 
+Qs('input[type="file"]', (elem) => {
+	const callback = (event) => { /* Declare and initialise callback for use in event listener. This allows us to call it beforehand */
+		let filesStr = "";
+		for (let i = 0; i < elem.files.length; i++) {
+			filesStr += elem.files[i].name;
+			if(i < elem.files.length - 1) {
+				filesStr += "; ";
+			}
+		}
+		if(!filesStr) {
+			filesStr = "Select File"
+			if(elem.attributes.multiple) {
+				filesStr = "Select File(s)"
+			}
+		} else {
+			if(elem.attributes.multiple) {
+				filesStr = "Select File(s): " + filesStr;
+			} else {
+				filesStr = "Select File: " + filesStr;
+			}
+		}
+
+		let inputContentElem = elem.previousElementSibling;
+
+		/* Do a wee bit of styling here just to make the button look better.
+		   Make space for the tick if the input is valid.
+		   If no js then the space will be there always */
+		let inputValidity = elem.checkValidity();
+		if(inputValidity) {
+			inputContentElem.style.setProperty("padding-right", "2.4rem");
+		} else {
+			inputContentElem.style.setProperty("padding-right", "0.8rem");
+		}
+
+		inputContentElem.innerHTML = filesStr;
+	}
+	callback(); /* Call it immediately, because a file might already be selected */
+	elem.addEventListener("change", callback);
+});
+
 async function PostData(url, formData, adminPasswd) {
 	// Wait for fetch to resolve
 	let response = await fetch(url, {
@@ -72,44 +112,32 @@ Qs("#admin-create-post-form")[0].addEventListener("submit", (event) => {
 			return response.text(); // And return a promise that resolves with the response body as text
 		})
 		.then((data) => { // When that promise resolves, log the result to the console
-			alert(data); // Should probably provide a nicer way of telling the user the result
 			console.log(data);
+			alert(data); // Should probably provide a nicer way of telling the user the result
 		});
 });
 
-Qs('input[type="file"]', (elem) => {
-	const callback = (event) => { /* Declare and initialise callback for use in event listener. This allows us to call it beforehand */
-		let filesStr = "Select File: ";
-		if(elem.attributes.multiple) {
-			filesStr = "Select File(s): "
-		}
-		for (let i = 0; i < elem.files.length; i++) {
-			filesStr += elem.files[i].name;
-			if(i < elem.files.length - 1) {
-				filesStr += "; ";
-			}
-		}
-		if(!filesStr) {
-			filesStr = "Select File"
-			if(elem.attributes.multiple) {
-				filesStr = "Select File(s)"
-			}
-		}
+Qs("#admin-upload-assets-form")[0].addEventListener("submit", (event) => {
+	event.preventDefault();
 
-		let inputContentElem = elem.previousElementSibling;
+	// FormData instance
+	let formData = new FormData();
 
-		/* Do a wee bit of styling here just to make the button look better.
-		   Make space for the tick if the input is valid.
-		   If no js then the space will be there always */
-		let inputValidity = elem.checkValidity();
-		if(inputValidity) {
-			inputContentElem.style.setProperty("padding-right", "2.4rem");
-		} else {
-			inputContentElem.style.setProperty("padding-right", "0.8rem");
-		}
+	// Get all the asset files - Simple assignment
+	let assetFiles = Qs("#admin-upload-assets-assetsfiles")[0].files;
 
-		inputContentElem.innerHTML = filesStr;
+	// Add all the asset files into the FormData
+	for(let i = 0; i < assetFiles.length; i++) {
+		formData.append("assetsfiles", assetFiles[i]);
 	}
-	callback(); /* Call it immediately, because a file might already be selected */
-	elem.addEventListener("change", callback);
+
+	// Now post the data. This is an async function so returns a promise
+	PostData(window.origin + "/admin/upload-assets", formData, Qs("#admin-upload-assets-password")[0].value)
+		.then((response) => { // When promise from PostData resolves, take the output
+			return response.text(); // And return a promise that resolves with the response body as text
+		})
+		.then((data) => { // When that promise resolves, log the result to the console
+			console.log(data);
+			alert(data); // Should probably provide a nicer way of telling the user the result
+		});
 });

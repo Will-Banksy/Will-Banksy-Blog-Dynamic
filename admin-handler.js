@@ -21,10 +21,10 @@ let router = express.Router();
 
 // Handle creating posts
 router.post("/create-post", (request, response, next) => {
-	let form = formidable({ multiples: true }); // Allow multiple files. Not actually needed here
+	let form = formidable(); // Formidable instance
 
 	form.parse(request, (err, fields, files) => { // Parse the request. Also provide a callback to be called once done.
-		if(err) { // If there was an error, get node to handle it (with next(err)) but also print a message
+		if(err) { // If there was an error, get express to handle it (with next(err)) but also print a message
 			console.log(`[ERROR]: Error parsing request data: ${err}`);
 			next(err);
 			return;
@@ -81,7 +81,7 @@ router.post("/create-post", (request, response, next) => {
 
 			// Resolve all the fs promises concurrently
 			Promise.all(fsPromises).then(() => {
-				// When they have all resolved, send a 
+				// When they have all resolved, send a response
 				console.log("[INFO]: Successfully added post"); // Log message
 				exec("node Stagenx.js parts/blog.json output ."); // Invoke Stagenx to build the new stuff into the website
 				response.status(201).send("Successfully added post"); // Status code: 201 Created
@@ -93,6 +93,53 @@ router.post("/create-post", (request, response, next) => {
 		})
 		.catch((err) => {
 			console.log(`[ERROR]: ${err}`);
+			next(err);
+			return;
+		});
+	});
+});
+
+router.post("/upload-assets", (request, response, next) => {
+	let form = formidable({ multiples: true }); // Allow multiple files. Needed here
+
+	form.parse(request, (err, fields, files) => { // Parse the request. Also provide a callback to be called once done.
+		if(err) { // If there was an error, get express to handle it (with next(err)) but also print a message
+			console.log(`[ERROR]: Error parsing request data: ${err}`);
+			next(err);
+			return;
+		}
+
+		// Check if we are the admin
+		let isAdmin = false;
+		let auth = request.header("Authorization"); // Get the Authorization header and transform it back from base64
+		let passHash = sha256(auth);
+		console.log("[Login Attempt]: pass=" + auth + ", hash=" + passHash);
+		if(passHash === process.env.ADMIN_KEY) {
+			isAdmin = true;
+		}
+
+		// If not admin, politely refuse to do anything by sending a 401 (Unauthorised) response
+		if(!isAdmin) {
+			// Send an unauthorized error code, with WWW-Authenticate header (which apparently you need to do)
+			response.set("WWW-Authenticate", 'Basic realm="Create posts"');
+			response.status(401).send("[ERROR]: Action requires admin");
+			return;
+		}
+
+		// Make a list of promises for each asset file that needs copied
+		let fsPromises = [];
+		files.forEach((file) => {
+			fsPromises.push(fs.copyFile(file.path, `parts/assets/${file.name}`));
+		});
+
+		// Resolve all the fs promises concurrently
+		Promise.all(fsPromises).then(() => {
+			// When they have all resolved, send a response
+			console.log("[INFO]: Successfully uploaded assets"); // Log message
+			exec("node Stagenx.js parts/blog.json output ."); // Invoke Stagenx to build the new stuff into the website
+			response.status(201).send("Successfully uploaded assets"); // Status code: 201 Created
+		}).catch((err) => {
+			console.log(`[ERROR]: FileSystem operation error: ${err}`);
 			next(err);
 			return;
 		});

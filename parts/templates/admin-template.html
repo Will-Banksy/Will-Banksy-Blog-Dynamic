@@ -62,35 +62,29 @@
 				</fieldset>
 			</form>
 
-			<button type="button" onclick="ToggleVisibility('#admin-upload-artwork-form');">Upload Artwork</button>
-			<form id="admin-upload-artwork-form" style="display: none;">
+			<button type="button" onclick="ToggleVisibility('#admin-upload-assets-form');">Upload assets</button>
+			<form id="admin-upload-assets-form" style="display: none;">
 				<fieldset class="form-area">
-					<legend>Upload Artwork</legend> 
+					<legend>Upload assets</legend> 
 
-					<label for="admin-upload-artwork-artworkfile">Post Thumbnail</label><br>
+					<label for="admin-upload-assets-assetsfiles">Assets File(s)</label><br>
 					<div class="form-input-wrapper">
 						<label class="form-file-input-area">
 							<div class="form-file-input-content">Select File(s)</div>
-							<input type="file" name="postthumbnail" id="admin-upload-artwork-artworkfile" required>
+							<input type="file" name="assetsfiles" id="admin-upload-assets-assetsfiles" multiple required>
 							${@parts/assets/tick.svg}
 						</label>
 					</div><br>
 
-					<label for="admin-upload-artwork-artworkfilename">Post Filename</label><br>
+					<!-- <button type="button" class="add-button">
+						${@parts/assets/plus.svg}Add assets
+					</button><br> -->
+
+					<label for="admin-upload-assets-password">Admin Password</label><br>
 					<div class="form-input-wrapper">
-						<input type="text" name="postfilename" id="admin-upload-artwork-artworkfilename" size="40" required>
+						<input type="password" name="password" id="admin-upload-assets-password" required>
 						${@parts/assets/tick.svg}
 					</div><br>
-
-					<button class="add-button">
-						${@parts/assets/plus.svg}Add Artwork
-					</button><br>
-
-					<label for="admin-upload-artwork-password">Admin Password</label><br>
-					<div class="form-input-wrapper">
-						<input type="password" name="password" id="admin-upload-artwork-password" required>
-						${@parts/assets/tick.svg}
-					</div>
 
 					<input type="submit" value="Post">
 				</fieldset>

@@ -63,7 +63,7 @@ textarea:focus {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	right: 0.5rem; /* Arbitrary value */
+	right: 0.6rem; /* Arbitrary value */
 	width: 1.2rem; /* Arbitrary value */
 	height: auto;
 	fill: var(--transparent);
@@ -120,8 +120,26 @@ input[type="file"] {
 	box-sizing: border-box;
 }
 
+.add-button {
+	display: flex;
+	align-items: center;
+}
+
 .add-button .svg-plus {
 	pointer-events: none;
+	width: 1.2rem;
+	height: auto;
+	fill: var(--back-mid);
+	transition: fill 0.2s ease-in-out;
+	margin-right: 0.6rem;
+}
+
+.add-button:hover .svg-plus {
+	fill: var(--accent);
+}
+
+.add-button .svg-plus .svg-path-colour-back-mid {
+	fill: inherit;
 }
 
 fieldset {
