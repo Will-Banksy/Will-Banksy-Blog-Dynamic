@@ -128,7 +128,7 @@ router.post("/upload-assets", (request, response, next) => {
 
 		// Make a list of promises for each asset file that needs copied
 		let fsPromises = [];
-		files.forEach((file) => {
+		files.assetsfiles.forEach((file) => {
 			fsPromises.push(fs.copyFile(file.path, `parts/assets/${file.name}`));
 		});
 
