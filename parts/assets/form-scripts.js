@@ -39,18 +39,40 @@ function ToggleVisibility(query) {
 	});
 }
 
-// This function will use all predefinied ids
-// function SubmitPost() {
-// 	// TODO Consider doing the time server-side instead of client-side
-// 	let DateTime = luxon.DateTime;
+async function PostData(url, formData, adminPasswd) {
+	// Wait for fetch to resolve
+	let response = await fetch(url, {
+		method: "POST",
+		headers: {
+			"Authorization": `admin:${adminPasswd}` // This is the Basic way of doing authorisation - uname:pass in Authorization header. Except, I think it *should* be encoded in base64. However, I shan't do so
+		},
+		body: formData
+	});
+	return response; // Return a promise that resolves with response (async)
+}
 
-// 	let now = DateTime.now();
-// 	let dateTimeString = now.toFormat("dd MMMM yyyy - hh:mm a"); // I can do it (almost) exactly the same as it'd be in Qt. Not bad.
+Qs("#admin-create-post-form")[0].addEventListener("submit", (event) => {
+	event.preventDefault(); // Prevent default behaviour
 
-// 	let postData = {
-// 		title: Qs("#admin-create-post-posttitle")[0].value,
-// 		description: Qs("#admin-create-post-postdescription")[0].value,
-// 		date: dateTimeString,
-// 		thumbnail:
-// 	};
-// }
+	// Create a FormData instance
+	let formData = new FormData();
+
+	// Add all the data (key-value pairs) to the FormData
+	formData.append("posttitle", Qs("#admin-create-post-posttitle")[0].value);
+	formData.append("postdescription", Qs("#admin-create-post-postdescription")[0].value);
+	formData.append("postcontent", Qs("#admin-create-post-postcontent")[0].value);
+	formData.append("postfilename", Qs("#admin-create-post-postfilename")[0].value);
+
+	// The values for keys can be files (File objects)
+	formData.append("postthumbnail", Qs("#admin-create-post-postthumbnail")[0].files[0]);
+
+	// Now post the data. This is an async function so returns a promise
+	PostData(window.origin + "/admin/create-post", formData, Qs("#admin-create-post-password")[0].value)
+		.then((response) => { // When promise from PostData resolves, take the output
+			return response.text(); // And return a promise that resolves with the response body as text
+		})
+		.then((data) => { // When that promise resolves, log the result to the console
+			alert(data); // Should probably provide a nicer way of telling the user the result
+			console.log(data);
+		});
+});
