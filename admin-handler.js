@@ -32,7 +32,7 @@ router.post("/create-post", (request, response, next) => {
 
 		// Check if we are the admin
 		let isAdmin = false;
-		let auth = request.header("Authorization"); // Get the Authorization header and transform it back from base64
+		let auth = request.header("Authorization");
 		let passHash = sha256(auth);
 		console.log("[Login Attempt]: pass=" + auth + ", hash=" + passHash);
 		if(passHash === process.env.ADMIN_KEY) {
@@ -111,7 +111,7 @@ router.post("/upload-assets", (request, response, next) => {
 
 		// Check if we are the admin
 		let isAdmin = false;
-		let auth = request.header("Authorization"); // Get the Authorization header and transform it back from base64
+		let auth = request.header("Authorization");
 		let passHash = sha256(auth);
 		console.log("[Login Attempt]: pass=" + auth + ", hash=" + passHash);
 		if(passHash === process.env.ADMIN_KEY) {
