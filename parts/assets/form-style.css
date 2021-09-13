@@ -10,9 +10,12 @@ input[type="submit"] {
 }
 
 button:hover,
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+button:focus,
+input[type="submit"]:focus {
 	border-color: var(--accent);
 	cursor: pointer;
+	outline: none;
 }
 
 input {
@@ -71,7 +74,8 @@ textarea:focus {
 }
 
 .form-input-wrapper input:valid + .svg-tick,
-.form-input-wrapper textarea:valid + .svg-tick {
+.form-input-wrapper textarea:valid + .svg-tick,
+.form-input-wrapper input[type="file"]:valid + div .svg-tick {
 	fill: var(--back-mid);
 }
 
@@ -97,17 +101,21 @@ label.form-file-input-area
 	background-color: var(--back-vdark);
 	color: var(--text);
 	padding: 0.4rem 0.8rem;
-	padding-right: 2.4rem;
 	border-radius: 3px;
 	transition: border-color 0.2s ease-in-out;
 }
 
-input[type="file"] {
+input[type="file"]:hover {
 	cursor: pointer;
 }
 
-.form-file-input-area:hover .form-file-input-content {
+input[type="file"]:hover + div .form-file-input-content,
+input[type="file"]:focus + div .form-file-input-content {
 	border-color: var(--accent);
+}
+
+input[type="file"]:valid + div .form-file-input-content {
+	padding-right: 2.4rem;
 }
 
 input[type="file"] {

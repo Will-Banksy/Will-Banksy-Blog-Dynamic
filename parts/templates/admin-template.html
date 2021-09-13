@@ -34,9 +34,11 @@
 					<label for="admin-create-post-postthumbnail">Post Thumbnail</label><br>
 					<div class="form-input-wrapper">
 						<label class="form-file-input-area">
-							<div class="form-file-input-content">Select File(s)</div>
 							<input type="file" name="postthumbnail" id="admin-create-post-postthumbnail" required>
-							${@parts/assets/tick.svg}
+							<div>
+								<div class="form-file-input-content">Select File(s)</div>
+								${@parts/assets/tick.svg}
+							</div>
 						</label>
 					</div><br>
 
@@ -70,9 +72,11 @@
 					<label for="admin-upload-assets-assetsfiles">Assets File(s)</label><br>
 					<div class="form-input-wrapper">
 						<label class="form-file-input-area">
-							<div class="form-file-input-content">Select File(s)</div>
-							<input type="file" name="assetsfiles" id="admin-upload-assets-assetsfiles" multiple required>
-							${@parts/assets/tick.svg}
+							<input type="file" name="assetsfiles" id="admin-upload-assets-assetsfiles" multiple required />
+							<div>
+								<div class="form-file-input-content">Select File(s)</div>
+								${@parts/assets/tick.svg}
+							</div>
 						</label>
 					</div><br>
 

@@ -61,19 +61,25 @@ Qs('input[type="file"]', (elem) => {
 			}
 		}
 
-		let inputContentElem = elem.previousElementSibling;
+		// Find the file input content element. It will be in the div straight after the file input element
+		let inputContentElem = null;
+		elem.nextElementSibling.childNodes.forEach((child) => {
+			console.log(child);
+			if(!child.classList || inputContentElem) { // If classList is undefined or inputContentElem is truthy
+				return;
+			}
 
-		/* Do a wee bit of styling here just to make the button look better.
-		   Make space for the tick if the input is valid.
-		   If no js then the space will be there always */
-		let inputValidity = elem.checkValidity();
-		if(inputValidity) {
-			inputContentElem.style.setProperty("padding-right", "2.4rem");
-		} else {
-			inputContentElem.style.setProperty("padding-right", "0.8rem");
+			child.classList.forEach((childClass) => {
+				if(childClass === "form-file-input-content") {
+					inputContentElem = child;
+					return;
+				}
+			});
+		});
+
+		if(inputContentElem) {
+			inputContentElem.innerHTML = filesStr;
 		}
-
-		inputContentElem.innerHTML = filesStr;
 	}
 	callback(); /* Call it immediately, because a file might already be selected */
 	elem.addEventListener("change", callback);

@@ -35,6 +35,10 @@ TODO: Fix the issue of the palette button. Again. *Sigh* the old fix doesn't wor
 	font-size: inherit;
 }
 
+*:focus {
+	outline: 2px dotted var(--accent);
+}
+
 ::selection {
 	color: var(--back-vdark);
 	background: var(--accent);
@@ -42,6 +46,7 @@ TODO: Fix the issue of the palette button. Again. *Sigh* the old fix doesn't wor
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Edit Undo', sans-serif;
+	font-weight: normal;
 }
 
 p {
@@ -64,6 +69,13 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+
+.hor-flex-centred-items {
+	display: flex;
+	align-items: center;
+}
+
+/* End of generic items */
 
 body {
 	background-color: var(--back-dark);
@@ -109,6 +121,7 @@ header {
 .header-title-container img {
 	height: 5rem;
 	width: auto;
+	image-rendering: pixelated; /* Some browsers support pixelated and not crisp-edges, some support crisp-edges and not pixelated. So hopefully if we say both, we'll get *fairly* consistent behaviour */
 	image-rendering: crisp-edges;
 	margin-right: 0.6rem;
 }
@@ -122,7 +135,7 @@ nav {
 	font-size: 2rem;
 	display: flex;
 	align-items: center;
-	overflow-x: auto; /* Scrollbars if needed */
+	/* overflow-x: auto; /* Scrollbars if needed */
 }
 
 .link-list * {
@@ -153,7 +166,8 @@ nav {
 	background-color: var(--back-light);
 }
 
-.switch-theme-button:hover {
+.switch-theme-button:hover,
+.switch-theme-button:focus {
 	border: 1px solid var(--text);
 }
 
@@ -201,7 +215,8 @@ a.post:hover {
 	text-decoration: none;
 }
 
-.post:hover {
+.post:hover,
+.post:focus {
 	outline: 1px solid var(--text);
 }
 
@@ -219,6 +234,7 @@ a.post:hover {
 
 /* Tiny screens. Should always do tiny screens as default */
 .post-thumbnail-img {
+	image-rendering: pixelated; /* Some browsers support pixelated and not crisp-edges, some support crisp-edges and not pixelated. So hopefully if we say both, we'll get *fairly* consistent behaviour */
 	image-rendering: crisp-edges;
 	display: block;
 	width: 4rem;
@@ -285,7 +301,8 @@ a.post:hover {
 	width: min(1rem, 14px); /* The image is 14x14 */
 	height: auto;
 	margin-right: 0.6rem;
-	image-rendering: pixelated; /* Pixelated uses smoothing when downscaling and nearest-neighbour when upscaling */
+	image-rendering: pixelated; /* Some browsers support pixelated and not crisp-edges, some support crisp-edges and not pixelated. So hopefully if we say both, we'll get *fairly* consistent behaviour */
+	image-rendering: crisp-edges;
 }
 
 /* Doing a bit of responsive web design here, oooooh! */
@@ -330,6 +347,7 @@ a.post:hover {
 .masonry-item img {
 	width: 100%;
 	height: auto;
+	image-rendering: pixelated; /* Some browsers support pixelated and not crisp-edges, some support crisp-edges and not pixelated. So hopefully if we say both, we'll get *fairly* consistent behaviour */
 	image-rendering: crisp-edges;
 	display: block;
 }
@@ -345,7 +363,7 @@ a.post:hover {
 	transition: 0.3s all cubic-bezier(0.16, 1, 0.3, 1); /* ease-out-expo */
 	transform: translateY(calc(100% + 1px));
 	font-style: italic;
-	font-weight: bold;
+	/* font-weight: bold; */
 }
 
 .masonry-item div:hover .masonry-item-caption {
@@ -372,12 +390,16 @@ footer {
 	display: flex;
 }
 
-.footer-link-list * {
+.footer-link-list > * {
 	margin-left: 1rem;
 }
 
-.footer-link-list *:first-child {
+.footer-link-list > *:first-child {
 	margin-left: 0;
+}
+
+.footer-link-list a {
+	color: var(--back-mid);
 }
 
 .footer-link-list img {
