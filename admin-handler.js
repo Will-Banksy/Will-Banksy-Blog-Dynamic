@@ -146,27 +146,79 @@ router.post("/upload-assets", (request, response, next) => {
 	});
 });
 
-// app.post("/export", function(request, response) {
-// 	let isAdmin = false;
-// 	let auth = request.header("Authorization");
-// 	if(auth !== undefined) {
-// 		let passHash = sha256(auth);
-// 		console.log("[Login Attempt]: pass=" + auth + ", hash=" + passHash);
-// 		if(passHash === process.env.ADMIN_KEY) {
-// 			isAdmin = true;
-// 		}
-// 	}
+// Handle uploading artworks
+router.post("/upload-artwork", (request, response, next) => {
+	let form = formidable(); // Formidable instance
 
-// 	if(isAdmin) {
-// 		// Export to glitch branch on github. Captured request from clicking "Export to GitHub" button
-// 		exec("curl 'https://api.glitch.com/project/githubExport?projectId=8985f063-d158-49b5-809b-df1e680346fc&repo=Will-Banksy%2FWill-Banksy-Blog-Dynamic&commitMessage=Export+From+Glitch' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0' -H 'Accept: */*' -H 'Accept-Language: en-GB,en;q=0.5' --compressed -H 'Referer: https://glitch.com/' -H 'Authorization: 07ef9923-1761-4a85-ab8e-904efe903712' -H 'Origin: https://glitch.com' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' --data-raw ''")
-// 		response.send("Exporting to github...");
-// 	} else {
-// 		// Send an unauthorized error code, with WWW-Authenticate header (which apparently you need to do)
-// 		response.set('WWW-Authenticate: Basic realm="Export to github"');
-// 		response.status(401).send("[ERROR]: Action requires admin");
-// 	}
-// });
+	form.parse(request, (err, fields, files) => { // Parse the request. Also provide a callback to be called once done.
+		if(err) { // If there was an error, get express to handle it (with next(err)) but also print a message
+			console.log(`[ERROR]: Error parsing request data: ${err}`);
+			next(err);
+			return;
+		}
+
+		// Check if we are the admin
+		let isAdmin = false;
+		let auth = request.header("Authorization");
+		let passHash = sha256(auth);
+		console.log("[Login Attempt]: pass=" + auth + ", hash=" + passHash);
+		if(passHash === process.env.ADMIN_KEY) {
+			isAdmin = true;
+		}
+
+		// If not admin, politely refuse to do anything by sending a 401 (Unauthorised) response
+		if(!isAdmin) {
+			// Send an unauthorized error code, with WWW-Authenticate header (which apparently you need to do)
+			response.set("WWW-Authenticate", 'Basic realm="Upload artworks"');
+			response.status(401).send("[ERROR]: Action requires admin");
+			return;
+		}
+
+		fs.readFile("parts/artboard.json") // Returns a promise - Resolves with file contents
+		.then((fileData) => {
+			let artboard = JSON.parse(fileData); // Parse the json string into a js object
+
+			// Get our date time string for the current time
+			let now = DateTime.now();
+			let dateTimeString = now.toFormat("dd MMMM yyyy - hh:mm a"); // Almost like Qt!
+
+			// Add another post with the data we've got
+			artboard.push({
+				title: fields.artworktitle,
+				description: fields.artworkdescription,
+				date: dateTimeString,
+				thumbnail: `/assets/artboard/${files.artworkfile.name}`, // Don't need to change the filename
+				content: "",
+				filename: ""
+			});
+
+			let artboardStr = JSON.stringify(artboard, null, "\t"); // Pretty JSON, indented with tabs. The null is for no filter
+
+			// Create an array of promises for the fs operations
+			let fsPromises = [
+				fs.writeFile("parts/artboard.json", artboardStr),
+				fs.copyFile(files.artworkfile.path, `parts/assets/artboard/${files.artworkfile.name}`)
+			];
+
+			// Resolve all the fs promises concurrently
+			Promise.all(fsPromises).then(() => {
+				// When they have all resolved, send a response
+				console.log("[INFO]: Successfully added artwork"); // Log message
+				exec("node Stagenx.js parts/blog.json output ."); // Invoke Stagenx to build the new stuff into the website
+				response.status(201).send("Successfully added artwork"); // Status code: 201 Created
+			}).catch((err) => {
+				console.log(`[ERROR]: FileSystem operation error: ${err}`);
+				next(err);
+				return;
+			});
+		})
+		.catch((err) => {
+			console.log(`[ERROR]: ${err}`);
+			next(err);
+			return;
+		});
+	});
+});
 
 // Export the router
 module.exports = router;

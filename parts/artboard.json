@@ -86,5 +86,29 @@
 		"thumbnail": "assets/artboard/Duck.png",
 		"content": "",
 		"filename": ""
+	},
+	{
+		"title": "SOMA - Delta Sign",
+		"description": "This is another SOMA inspired artwork. This time of a sign showing in glowing letters: DELTA",
+		"date": "21 October 2021 - 10:51 AM",
+		"thumbnail": "/assets/artboard/DeltaSign.png",
+		"content": "",
+		"filename": ""
+	},
+	{
+		"title": "Leo",
+		"description": "This is a portrait I created following this excellent video: https://www.youtube.com/watch?v=3PQdx3o7gJA",
+		"date": "21 October 2021 - 10:56 AM",
+		"thumbnail": "/assets/artboard/Leo.png",
+		"content": "",
+		"filename": ""
+	},
+	{
+		"title": "Valley Scene",
+		"description": "Was originally going to do a Scottish valley scene, but it turned out much brighter and cheerier than Scotland tends to be",
+		"date": "21 October 2021 - 11:03 AM",
+		"thumbnail": "/assets/artboard/ValleyScene.png",
+		"content": "",
+		"filename": ""
 	}
 ]

@@ -147,3 +147,27 @@ Qs("#admin-upload-assets-form")[0].addEventListener("submit", (event) => {
 			alert(data); // Should probably provide a nicer way of telling the user the result
 		});
 });
+
+Qs("#admin-upload-artwork-form")[0].addEventListener("submit", (event) => {
+	event.preventDefault();
+
+	// FormData instance
+	let formData = new FormData();
+
+	// Add all the data (key-value pairs) to the FormData
+	formData.append("artworktitle", Qs("#admin-upload-artwork-artworktitle")[0].value);
+	formData.append("artworkdescription", Qs("#admin-upload-artwork-artworkdescription")[0].value);
+
+	// The values for keys can be files (File objects)
+	formData.append("artworkfile", Qs("#admin-upload-artwork-artworkfile")[0].files[0]);
+
+	// Now post the data. This is an async function so returns a promise
+	PostData(window.origin + "/admin/upload-artwork", formData, Qs("#admin-upload-artwork-password")[0].value)
+		.then((response) => { // When promise from PostData resolves, take the output
+			return response.text(); // And return a promise that resolves with the response body as text
+		})
+		.then((data) => { // When that promise resolves, log the result to the console
+			console.log(data);
+			alert(data); // Should probably provide a nicer way of telling the user the result
+		});
+})
