@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Glitch Sync
-        uses: kanadgupta/glitch-sync@master
+        uses: kanadgupta/glitch-sync@main
         with:
           # Using secrets so people can't access my glitch :eyes:
           project-id: '${{ secrets.GLITCH_PROJECT_ID }}'
