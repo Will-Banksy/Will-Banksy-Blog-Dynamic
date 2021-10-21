@@ -2,4 +2,4 @@
 
 # Will Banksy's Blog (Dynamic/Not Static)
 
-The admin key for making posts isn't stored here, it's stored on glitch, in `.env`, which isn't overwritten by exporting this repo to my glitch project which is nice.
+Website powered by express.js and my own Stagenx
